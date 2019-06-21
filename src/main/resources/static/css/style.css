@@ -1,0 +1,30 @@
+
+/* range样式 */
+input[type="range"]{
+	-webkit-appearance: none;
+	height: 8px;
+	background: #999;
+	border-radius: 10px;
+	outline: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+	-webkit-appearance: none;
+	height: 12px;
+	width: 12px;
+	background: #fff;
+	border-radius: 100%;
+}
+/* 火狐写法 */
+input[type="range"]::-moz-range-track{
+	height: 8px;
+	background: #999;
+	border-radius: 10px;
+	border: none;
+}
+input[type="range"]::-moz-range-thumb{
+	height: 12px;
+	width: 12px;
+	background: #fff;
+	border: none;
+	border-radius: 100%;
+}

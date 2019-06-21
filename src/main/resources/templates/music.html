@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="static/css/style.css" />
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background: #222222;
+				color: #DDDDDD;
+			}
+			ul{
+				list-style: none;
+			}
+			.music-frame{
+				position: absolute;
+				top: 10px;
+				bottom: 10px;
+				left: 10px;
+				right: 10px;
+				border: 1px solid #FFFFFF;
+			}
+			@media only screen and (max-width: 620px) {
+				.music-frame{
+					left: 0;
+					right: 0;
+					width: 620px;
+				}
+			}
+			#menu{
+				background: rgb(0,0,0,0.7);
+			}
+			.menu-main{
+				margin: 80px auto;
+				width: 600px;
+			}
+			#sign{
+				height: 200px;
+				width: 200px;
+				float: left;
+			}
+			#lyric{
+				height: 200px;
+				width: 400px;
+				float: right;
+				background: #999999;
+			}
+			
+			.menu-control{
+				height: 120px;
+				width: 100%;
+				background: #333333;
+				float: left;
+			}
+			
+			#lastMusic, #nextMusic, #pause, #play{
+				float: left;
+				position: relative;
+				top: 40px;
+				margin: 0 5px;
+				height: 30px;
+				width: 30px;
+				cursor: pointer;
+			}
+			#lastMusic:hover, #nextMusic:hover, #pause:hover, #play:hover{
+				opacity: 0.7;
+			}
+			#lastMusic{
+				background: url(static/img/last-music.png) no-repeat scroll top left;
+				background-size: cover;
+			}
+			#pause, #play{
+				top: 36px;
+				height: 35px;
+				width: 35px;
+			}
+			#pause{
+				background: url(static/img/pause.png) no-repeat scroll top left;
+				background-size: cover;
+			}
+			#play{
+				background: url(static/img/play.png) no-repeat scroll top left;
+				background-size: cover;
+			}
+			#nextMusic{
+				background: url(static/img/next-music.png) no-repeat scroll top left;
+				background-size: cover;
+			}
+			
+			#progress{
+				float: left;
+				position: relative;
+				top: 45px;
+				margin: 0 5px;
+			}
+			#progress input{
+				width: 200px;
+			}
+			
+			#sound, #nosound, #soundSize{
+				float: right;
+				position: relative;
+				top: 45px;
+				margin: 0 5px;
+			}
+			#sound, #nosound{
+				top: 50px;
+				height: 15px;
+				width: 20px;
+				cursor: pointer;
+			}
+			#sound:hover, #nosound:hover{
+				opacity: 0.7;
+			}
+			#soundSize input{
+				width: 80px;
+			}
+			#sound{
+				background: url(static/img/sound.png) repeat scroll top left;
+				background-size: cover;
+				
+			}
+			#nosound{
+				background: url(static/img/nosound.png) repeat scroll top left;
+				background-size: cover;
+			}
+			
+			#oncePlay, #allPlay, #randomPlay{
+				float: right;
+				position: relative;
+				top: 49px;
+				margin: 0 10px;
+				height: 16px;
+				width: 16px;
+				cursor: pointer;
+			}
+			#oncePlay:hover, #allPlay:hover, #randomPlay:hover{
+				opacity: 0.7;
+			}
+			#oncePlay{
+				background: url(static/img/once-play.png) repeat scroll top left;
+				background-size: cover;
+			}
+			#allPlay{
+				background: url(static/img/all-play.png) repeat scroll top left;
+				background-size: cover;
+			}
+			#randomPlay{
+				background: url(static/img/random-play.png) repeat scroll top left;
+				background-size: cover;
+			}
+			
+			#musicName{
+				float: left;
+				position: absolute;
+				top: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="music-frame" id="box"></div>
+		
+		<div class="music-frame" id="menu">
+			
+			<div class="menu-main">
+				
+				<img id="sign" />
+				<div id="lyric"></div>
+				
+				<div class="menu-control">
+					<ul>
+						<li id="lastMusic"></li>
+						<li id="play"></li>
+						<li id="pause" style="display: none;"></li>
+						<li id="nextMusic"></li>
+						
+						<li id="progress">
+							<span id="nowTime">0:00</span>
+							<input type="range" id="progress-sign" min="0" max="100" value="0" />
+							<span id="allTime">x:xx</span>
+						</li>
+						
+						<!-- 倒数 -->
+						<li id="oncePlay"></li>
+						<li id="allPlay" style="display: none;"></li>
+						<li id="randomPlay" style="display: none;"></li>
+						
+						<li id="soundSize">
+							<input type="range" id="volume" min="0" max="100" value="60" />
+						</li>
+						<li id="sound"></li>
+						<li id="nosound" style="display: none;"></li>
+						
+						<li id="musicName">不能说的秘密-周杰伦</li>
+						
+					</ul>
+				</div>
+				
+			</div>
+			
+			<!-- 音乐列表 -->
+			<div class="menu-list">
+				
+			</div>
+			
+		</div>
+
+		
+	</body>
+	<script type="text/javascript" src="static/js/MusicVisualizer.js" ></script>
+	<script type="text/javascript" src="static/js/music.js" ></script>
+	<script>
+		var img = document.getElementById("sign");
+		img.setAttribute("src","static/img/Tianyi.png");
+		
+		
+	</script>
+</html>
