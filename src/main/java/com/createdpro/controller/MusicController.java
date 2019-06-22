@@ -14,7 +14,7 @@ public class MusicController {
 
     @PostMapping("/getMusicList.pro")
     public JsonResult getMusicList(){
-        return null;
+        return musicService.getList();
     }
 
     @PostMapping("/getMusic.pro")
