@@ -146,6 +146,7 @@ MusicVisualizer.prototype.pause = function(){
 MusicVisualizer.prototype.stop = function(){
 	window.clearInterval(this.nowTimeId);
 	this.isPlay = 0;
+	console.log("触发了一次停止播放");
 	this.source[this.source.stop ? "stop" : "noteOff"](0);
 }
 

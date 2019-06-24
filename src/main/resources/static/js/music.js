@@ -1,6 +1,6 @@
 //var name = "I LOVE U.mp3";
 
-var name = "周杰伦-不能说的秘密.flac";
+// var name = "周杰伦-不能说的秘密.flac";
 
 // 真正的数据长度
 var size = 256;
@@ -17,15 +17,16 @@ var mv = new MusicVisualizer({
 });
 
 /*******************************************************************************/
-// 全部时长
-mv.preplay("http://localhost:8080/getMusic.pro?name=" + name, function(allTime){
-	// 保存到全局对象
-	mv.allTime = allTime;
-	document.getElementById("allTime").innerText = formatTime(allTime);
 
-});
+function getMusicByName(name){
+	// 全部时长
+	mv.preplay("http://localhost:8080/getMusic.pro?name=" + name, function(allTime){
+		// 保存到全局对象
+		mv.allTime = allTime;
+		document.getElementById("allTime").innerText = formatTime(allTime);
 
-
+	});
+}
 
 /*******************************************************************************/
 

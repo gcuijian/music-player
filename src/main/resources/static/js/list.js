@@ -13,6 +13,10 @@ function loadList(url, fun){
 function setListData(url){
 	var list = document.getElementById("musicList");
 	loadList(url, function(result){
+		if (result.data == null) {
+			console.log("音乐为空");
+			return;
+		}
 		for(var i=0; i<result.data.length; i++){
 			var data = result.data[i];
 			console.log(data);
@@ -29,12 +33,16 @@ function setListData(url){
 			musicName.innerText = data.substring(0, data.indexOf("."));
 			
 			li.title = data;
+			li.setAttribute("class", "music-node");
 			li.appendChild(div);
 			li.appendChild(musicName);
 		
 			list.appendChild(li);
 		}
-		
+		var div = document.createElement("div");
+		div.style.clear = "both";
+		list.appendChild(div);
+		addMusicListEvent();
 	});
 }
 
@@ -68,5 +76,14 @@ document.getElementById("openBar").onclick = function(){
 }
 
 document.getElementById("closeBar").click();
+
+function addMusicListEvent(){
+	var nodes = document.getElementsByClassName("music-node");
+	for(var i in nodes){
+		nodes[i].onclick = function(){
+			getMusicByName(this.title);
+		}
+	}
+}
 
 
