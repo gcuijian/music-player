@@ -22,4 +22,9 @@ public class MusicController {
         return musicService.getMusic(name);
     }
 
+    @PostMapping("/getMusicLyric.pro")
+    public JsonResult getMusicLyric(String name){
+        return musicService.getLyric(name);
+    }
+
 }

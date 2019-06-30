@@ -1,5 +1,7 @@
 //var name = "I LOVE U.mp3";
 
+var cache_music = [];
+
 // var name = "周杰伦-不能说的秘密.flac";
 
 // 真正的数据长度
@@ -18,14 +20,34 @@ var mv = new MusicVisualizer({
 
 /*******************************************************************************/
 
-function getMusicByName(name){
+function getMusicByName(name, autoPlay){
+	loadMusicInfo(name);
+	// 保存
+	mv.nowMusicName = name;
 	// 全部时长
-	mv.preplay("http://localhost:8080/getMusic.pro?name=" + name, function(allTime){
+	mv.preplay("./getMusic.pro", name, function(allTime){
 		// 保存到全局对象
 		mv.allTime = allTime;
 		document.getElementById("allTime").innerText = formatTime(allTime);
-
+		
+		if(autoPlay){
+			document.getElementById("play").click();
+		}
+		
+		showLyric(name);
 	});
+}
+
+function loadMusicInfo(name){
+	document.getElementById("musicName").innerText = name.substring(0, name.indexOf("."));
+	document.getElementById("play").style.display = "";
+	document.getElementById("pause").style.display = "none";
+	if(mv.isPlay){
+		mv.stop();
+	}
+	mv.nowTime = 0;
+	// 加入历史播放
+	mv.historyMusic.push(name);
 }
 
 /*******************************************************************************/
@@ -61,17 +83,18 @@ document.getElementById("pause").onclick = function(){
 document.getElementById("progress-sign").onchange = function(){
 	var precent = this.value / 100;
 	if(!mv.isPlay){
-		console.log("拦截了一次非播放状态下的进度调节请求");
+		console.log("Blocked the progress adjustment during a playback.");
 		return;
 	}
-	console.log("通过拦截");
 	mv.stop();
 	var nowTime = parseInt(precent * mv.allTime);
 	localStorage.playTime = nowTime;
 	mv.nowTime = nowTime;
 	mv.continuePlay();
+	ifToJump();
 }
 
+// TODO 不知道为什么，无法生效？
 document.getElementById("progress-sign").mouseover = function(){
 	console.log("over:" + this.value);
 }
@@ -149,3 +172,31 @@ document.getElementById("volume").onchange = function(){
 }
 
 document.getElementById("volume").onchange();
+
+// 下载进度
+function createDownLoadProgress(){
+	var body = document.getElementsByTagName("body")[0];
+	var div = document.createElement("div");
+	div.setAttribute("id", "downloadProgress");
+	body.appendChild(div);
+}
+
+function removeDownloadProgress(){
+	var dp = document.getElementById("downloadProgress");
+	if(dp != null) dp.parentElement.removeChild(dp);
+}
+
+function setDownloadProgress(event){
+	var dp = document.getElementById("downloadProgress");
+	if(!dp){
+		createDownLoadProgress();
+		dp = document.getElementById("downloadProgress");
+	}
+	if(event.lengthComputable){
+		var percentComplete = event.loaded / event.total;
+		dp.style.width = (percentComplete * 100) + "%";
+		if (percentComplete == 1) {
+			removeDownloadProgress();
+		}
+	}
+}

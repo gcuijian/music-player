@@ -48,13 +48,24 @@
 				height: 200px;
 				width: 400px;
 				float: right;
-				background: #999999;
+				background: url(static/img/glass.png);
+				overflow: hidden;
+			}
+			#lyric li{
+				font-size: 13px;
+				text-align: center;
+				margin: 20px;
+				opacity: 0.7;
+			}
+			.lyricLeave{
+				display: none;
 			}
 			
 			.menu-control{
 				height: 120px;
 				width: 100%;
 				background: #333333;
+				opacity: 0.7;
 				float: left;
 			}
 			
@@ -167,7 +178,7 @@
 				left: 0;
 				width: 100%;
 				height: 460px;
-				background: rgb(255,255,255,0.1);
+				background: rgb(255,255,255,0.3);
 				font-size: 12px;
 				overflow-y: scroll;
 			}
@@ -207,6 +218,21 @@
 			.list-bar:hover{
 				color: #FFFFFF;
 			}
+			
+			.music-node p{
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			#downloadProgress{
+				position: fixed;
+				top: 3px;
+				left: 0;
+				height: 5px;
+				width: 0%;
+				background-color: #DDDDDD;
+			}
 		</style>
 	</head>
 	<body>
@@ -223,8 +249,8 @@
 				<div class="menu-control">
 					<ul>
 						<li id="lastMusic"></li>
-						<li id="play"></li>
-						<li id="pause" style="display: none;"></li>
+						<li id="play" style="display: none;"></li>
+						<li id="pause"></li>
 						<li id="nextMusic"></li>
 						
 						<li id="progress">
@@ -234,22 +260,22 @@
 						</li>
 						
 						<!-- 倒数 -->
-						<li id="oncePlay"></li>
-						<li id="allPlay" style="display: none;"></li>
-						<li id="randomPlay" style="display: none;"></li>
+						<li id="oncePlay" title="单曲循环"></li>
+						<li id="allPlay" title="列表循环" style="display: none;"></li>
+						<li id="randomPlay" title="随机播放" style="display: none;"></li>
 						
 						<li id="soundSize">
 							<input type="range" id="volume" min="0" max="100" value="60" />
 						</li>
-						<li id="sound"></li>
-						<li id="nosound" style="display: none;"></li>
+						<li id="sound" title="点击静音"></li>
+						<li id="nosound" title="点击解除静音" style="display: none;"></li>
 						
-						<li id="musicName">不能说的秘密-周杰伦</li>
+						<li id="musicName">暂未选择歌曲</li>
 						
 					</ul>
 				</div>
 				
-				<div class="list-bar" id="openBar">
+				<div class="list-bar" id="openBar" title="展开列表">
 					<p>呈上来</p>
 					<p>↑</p>
 				</div>
@@ -275,10 +301,10 @@
 	<script type="text/javascript" src="static/js/MusicVisualizer.js" ></script>
 	<script type="text/javascript" src="static/js/music.js" ></script>
 	<script type="text/javascript" src="static/js/list.js" ></script>
+	<script type="text/javascript" src="static/js/lyric.js"></script>
 	<script>
 		var img = document.getElementById("sign");
-		img.setAttribute("src","static/img/Tianyi.png");
-		
+		img.setAttribute("src","static/img/she.png");
 		
 	</script>
 </html>

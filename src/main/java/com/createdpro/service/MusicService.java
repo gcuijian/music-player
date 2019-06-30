@@ -1,19 +1,25 @@
 package com.createdpro.service;
 
+import com.createdpro.util.LyricExplain;
 import com.createdpro.vo.JsonResult;
 import com.createdpro.vo.PathConf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class MusicService {
 
     @Autowired
     private PathConf pathConf;
+
+    private static Map<String, Map<Integer, String>> tempMap = new ConcurrentHashMap<>();
 
     /**
      *
@@ -60,6 +66,31 @@ public class MusicService {
             fileList.add(file.getName());
         }
         return JsonResult.success(fileList);
+    }
+
+    /**
+     * 返回歌词
+     * @param name
+     * @return
+     */
+    public JsonResult getLyric(String name){
+        if (StringUtils.isEmpty(name)){
+            return JsonResult.error(1, new RuntimeException("参数不正确"));
+        }
+        String LYRIC_PATH = pathConf.getConf().getLYRIC_PATH();
+        String realName = name.substring(0, name.lastIndexOf(".")) + ".lrc";
+        if (tempMap.get(realName) != null){
+            return JsonResult.success(tempMap.get(realName));
+        }
+        Map<Integer, String> lyric;
+        try {
+            lyric = LyricExplain.getLyric(realName, LYRIC_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return JsonResult.success(null);
+        }
+        if (lyric != null) tempMap.put(realName, lyric);
+        return JsonResult.success(lyric);
     }
 
 }
