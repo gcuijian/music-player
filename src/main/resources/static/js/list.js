@@ -159,6 +159,7 @@ function toLastMusic(){
 
 // 跳到下一个
 document.getElementById("oncePlay").onclick = function(){
+	if(document.getElementById("downloadProgress")) return;
 	this.style.display = "none";
 	document.getElementById("allPlay").style.display = "";
 	clearLoop();
@@ -166,6 +167,7 @@ document.getElementById("oncePlay").onclick = function(){
 }
 
 document.getElementById("allPlay").onclick = function(){
+	if(document.getElementById("downloadProgress")) return;
 	this.style.display = "none";
 	document.getElementById("randomPlay").style.display = "";
 	clearLoop();
@@ -173,6 +175,7 @@ document.getElementById("allPlay").onclick = function(){
 }
 
 document.getElementById("randomPlay").onclick = function(){
+	if(document.getElementById("downloadProgress")) return;
 	this.style.display = "none";
 	document.getElementById("oncePlay").style.display = "";
 	clearLoop();
